@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="gray">#AFAFAF</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="transparent">#00FFFFFF</color>
+    <color name="background_main_color">#fff</color>
+    <color name="background_feelings_button">#EBEFF4</color>
+    <color name="background_toolbar">#88E6E6FA</color>
+    <color name="background_button">#CCCCFF</color>
+    <color name="background_button_change">#F0C2EB</color>
+    <color name="backgroud_moreInfromain">#fcf3f6</color>
+    <color name="mood_10">#2EF436</color>
+    <color name="mood_9">#73F42E</color>
+    <color name="mood_8">#8AF42E</color>
+    <color name="mood_7">#A8F42E</color>
+    <color name="mood_6">#BFF42E</color>
+    <color name="mood_5">#E4EA33</color>
+    <color name="mood_4">#EAD233</color>
+    <color name="mood_3">#EAAD33</color>
+    <color name="mood_2">#EAA733</color>
+    <color name="mood_1">#EA7C33</color>
+    <color name="mood_0">#F11C0D</color>
+    <color name="graph">#E63E78</color>
+</resources>
