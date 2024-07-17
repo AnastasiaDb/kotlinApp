@@ -9,16 +9,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.appmood.R
 import com.example.appmood.date.DayMood
 
-class MyAdapter : RecyclerView.Adapter<MyViewHolder> {
-    private var context: Context
+class MyAdapter(
+    private var context: Context,
     private var items: List<DayMood>
-
-
-    constructor(context: Context, items: List<DayMood>) {
-
-        this.context = context
-        this.items = items
-    }
+) : RecyclerView.Adapter<MyViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         return MyViewHolder(
@@ -37,72 +31,83 @@ class MyAdapter : RecyclerView.Adapter<MyViewHolder> {
         holder.date.text = items[position].getCalendar()
         holder.note.text = items[position].getNotes()
         holder.mood.text = java.lang.String.valueOf(items[position].getMood())
-        var mood = items[position].getMood()
+        val mood = items[position].getMood()
         when (mood) {
             -1 -> {
                 holder.mood.text = "-"
                 holder.mood.setBackgroundColor(ContextCompat.getColor(context, R.color.gray))
             }
+
             0 -> holder.mood.setBackgroundColor(
                 ContextCompat.getColor(
                     context,
                     R.color.mood_0
                 )
             )
+
             1 -> holder.mood.setBackgroundColor(
                 ContextCompat.getColor(
                     context,
                     R.color.mood_1
                 )
             )
+
             2 -> holder.mood.setBackgroundColor(
                 ContextCompat.getColor(
                     context,
                     R.color.mood_2
                 )
             )
+
             3 -> holder.mood.setBackgroundColor(
                 ContextCompat.getColor(
                     context,
                     R.color.mood_3
                 )
             )
+
             4 -> holder.mood.setBackgroundColor(
                 ContextCompat.getColor(
                     context,
                     R.color.mood_4
                 )
             )
+
             5 -> holder.mood.setBackgroundColor(
                 ContextCompat.getColor(
                     context,
                     R.color.mood_5
                 )
             )
+
             6 -> holder.mood.setBackgroundColor(
                 ContextCompat.getColor(
                     context,
                     R.color.mood_6
                 )
             )
+
             7 -> holder.mood.setBackgroundColor(
                 ContextCompat.getColor(
                     context,
                     R.color.mood_7
                 )
             )
+
             8 -> holder.mood.setBackgroundColor(
                 ContextCompat.getColor(
                     context,
                     R.color.mood_8
                 )
             )
+
             9 -> holder.mood.setBackgroundColor(
                 ContextCompat.getColor(
                     context,
                     R.color.mood_9
                 )
             )
+
             10 -> holder.mood.setBackgroundColor(
                 ContextCompat.getColor(
                     context,

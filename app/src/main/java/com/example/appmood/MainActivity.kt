@@ -15,22 +15,22 @@ import java.text.SimpleDateFormat
 import java.util.Date
 
 class MainActivity : AppCompatActivity() {
-    private lateinit var myDBManager: MyDBManager
+    private var myDBManager: MyDBManager = MyDBManager(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        myDBManager = MyDBManager(this)
+        // myDBManager = MyDBManager(this)
         myDBManager.openDB()
 
-        val values: List<DayMood>? = myDBManager.getFromDB()
-        for (i in values!!.indices) {
-            Log.d(
-                "HI!!!!!", "mood: " + values[i].getMood() + ", day: " + values[i].getCalendar() +
-                        ",emotion " + values[i].getEmotions() + ",information " + values[i].getNotes() + ",advice " + values[i].getAdvice()
-            )
-        }
+//        val values: List<DayMood>? = myDBManager.getFromDB()
+//        for (i in values!!.indices) {
+//            Log.d(
+//                "HI!!!!!", "mood: " + values[i].getMood() + ", day: " + values[i].getCalendar() +
+//                        ",emotion " + values[i].getEmotions() + ",information " + values[i].getNotes() + ",advice " + values[i].getAdvice()
+//            )
+//        }
     }
 
 
@@ -102,17 +102,17 @@ class MainActivity : AppCompatActivity() {
         dialog.show()
     }
 
-    fun newMain(view:View) {
+    fun newMain(view: View) {
         val intent = Intent(this, MainActivityGraph::class.java)
         startActivity(intent)
     }
 
-    fun newMain_Inform(view:View) {
+    fun newMain_Inform(view: View) {
         val intent = Intent(this, MainActivityInformation::class.java)
         startActivity(intent)
     }
 
-    fun newMain_AllNotes(view:View) {
+    fun newMain_AllNotes(view: View) {
         val intent = Intent(this, MainActivityNotes::class.java)
         startActivity(intent)
     }

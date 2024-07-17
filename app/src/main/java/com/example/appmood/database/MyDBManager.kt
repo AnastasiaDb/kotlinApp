@@ -14,31 +14,26 @@ import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 
-class MyDBManager {
-    private val context: Context
-    private val myDBHelper:MyDBHelper
-    private lateinit var db:SQLiteDatabase
+class MyDBManager(context: Context) {
+    private val myDBHelper: MyDBHelper = MyDBHelper(context)
+    private lateinit var db: SQLiteDatabase
 
-    constructor(context: Context){
-        this.context=context
-        myDBHelper = MyDBHelper(context)
-    }
 
-    fun openDB(){
+    fun openDB() {
         db = myDBHelper.writableDatabase
     }
 
     fun insertToDB_Mood(mood: Int, date: String) {
         val cv = ContentValues()
         cv.put(_MOOD, mood)
-        cv.put(MyDataBase._DATE, date)
+        cv.put(_DATE, date)
         db.insert(TABLE_NAME, null, cv)
     }
 
     fun insertToDBEmotionsAndInform(emotions: String, information: String, date: String) {
         val cv = ContentValues()
-        cv.put(MyDataBase._DATE, date)
-        cv.put(MyDataBase._MOOD, -1)
+        cv.put(_DATE, date)
+        cv.put(_MOOD, -1)
         cv.put(_EMOTIONS, emotions)
         cv.put(_INFORMATION, information)
         db.insert(TABLE_NAME, null, cv)
@@ -50,14 +45,14 @@ class MyDBManager {
         val cv = ContentValues()
         cv.put(_MOOD, -1)
         cv.put(_IS_GIVEN_ADVICE, 1)
-        cv.put(MyDataBase._DATE, todayDateString)
+        cv.put(_DATE, todayDateString)
         db.insert(TABLE_NAME, null, cv)
     }
 
     fun updateToDB_Mood(mood: Int, date: String) {
         val cv = ContentValues()
         cv.put(_MOOD, mood)
-        val whereClause = MyDataBase._DATE + "=?"
+        val whereClause = _DATE + "=?"
         val whereArgs = arrayOf(date)
         db.update(TABLE_NAME, cv, whereClause, whereArgs)
     }
@@ -66,7 +61,7 @@ class MyDBManager {
         val cv = ContentValues()
         cv.put(_EMOTIONS, emotions)
         cv.put(_INFORMATION, information)
-        val whereClause = MyDataBase._DATE + "=?"
+        val whereClause = _DATE + "=?"
         val whereArgs = arrayOf(date)
         db.update(TABLE_NAME, cv, whereClause, whereArgs)
     }
@@ -156,7 +151,7 @@ class MyDBManager {
             val advice = cursor.getInt(cursor.getColumnIndexOrThrow(_IS_GIVEN_ADVICE))
             val emotionsNotNull = emotions ?: ""
             val informationNotNull = information ?: ""
-            tempList.add(DayMood(date, mood, emotionsNotNull, informationNotNull))
+            tempList.add(DayMood(advice,date, mood, emotionsNotNull, informationNotNull))
         }
         cursor.close()
         return tempList
@@ -210,8 +205,8 @@ class MyDBManager {
         // Параметризированный SQL-запрос с условием на дату и непустое значение в поле _MOOD
         val selectionArgs = arrayOf(todayDateString)
         val cursor = db.rawQuery(
-            ((((("SELECT * FROM $TABLE_NAME").toString() + " WHERE " + _DATE).toString() + " = ? AND " + _MOOD).toString() + " IS NOT NULL AND "
-                    + _MOOD).toString() + "!= ''" + " AND " + _MOOD).toString() + "!=-1",
+            ((((("SELECT * FROM $TABLE_NAME").toString() + " WHERE " + _DATE) + " = ? AND " + _MOOD) + " IS NOT NULL AND "
+                    + _MOOD) + "!= ''" + " AND " + _MOOD) + "!=-1",
             selectionArgs
         )
         val hasNonEmptyMood = cursor.count > 0
@@ -228,8 +223,8 @@ class MyDBManager {
         // Параметризированный SQL-запрос с условием на дату и непустое значение в поле _MOOD
         val selectionArgs = arrayOf(todayDateString)
         val cursor = db.rawQuery(
-            ((((("SELECT * FROM $TABLE_NAME").toString() + " WHERE " + _DATE).toString() + " = ? AND " + _EMOTIONS).toString() + " IS NOT NULL AND "
-                    + _EMOTIONS).toString() + " != ''"), selectionArgs
+            ((((("SELECT * FROM $TABLE_NAME").toString() + " WHERE " + _DATE) + " = ? AND " + _EMOTIONS) + " IS NOT NULL AND "
+                    + _EMOTIONS) + " != ''"), selectionArgs
         )
         val hasNonEmptyEmo = cursor.count > 0
         cursor.close()
@@ -246,7 +241,7 @@ class MyDBManager {
         val selectionArgs = arrayOf(todayDateString)
         val cursor = db.rawQuery(
             ((((("SELECT * FROM $TABLE_NAME").toString() + " WHERE " + _DATE) + " = ? AND " + _INFORMATION) + " IS NOT NULL AND "
-                    + _INFORMATION).toString() + " != ''"), selectionArgs
+                    + _INFORMATION) + " != ''"), selectionArgs
         )
         val hasNonEmptyEmo = cursor.count > 0
         cursor.close()

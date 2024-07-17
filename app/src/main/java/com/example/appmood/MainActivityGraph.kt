@@ -7,7 +7,6 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.example.appmood.database.MyDBManager
 import com.example.appmood.date.DayMood
-import com.github.mikephil.charting.charts.Chart
 import com.github.mikephil.charting.charts.LineChart
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
@@ -37,7 +36,7 @@ class MainActivityGraph : AppCompatActivity() {
             fillChartWithData(7)
         }
         findViewById<View>(R.id.thirty_days).setOnClickListener {
-            values = myDBManager.getFromDB_30()!!
+            values = myDBManager.getFromDB_30()
             fillChartWithData(30)
         }
     }
@@ -130,7 +129,7 @@ class MainActivityGraph : AppCompatActivity() {
         return dates
     }
 
-     fun newMain(view: View) {
+    fun newMain(view: View) {
         val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
     }
